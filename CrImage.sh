@@ -23,7 +23,7 @@ BLINK() {
     else kill "$PID"; PID=0; sudo sh -c "echo 0 > $Led"; fi
 }
 # Create/Write Images with dd Options
-DD() { sudo dd bs=512k status=progress if="$1" of="$2"; }
+DD() { sudo dd bs=2048k status=progress if="$1" of="$2"; }
 
 # Create Names for Images
 Day="$(date +%d-%m-%y)";
