@@ -49,9 +49,9 @@ if [[ $(mount | grep "${SSD}2 on / type ext4") ]]; then
                  BLINK;
                  Write "WriteImage: Write \$BOOT nach ${CARD}p1"; DD "$BOOT" "${CARD}p1";
                  Write "WriteImage: Write \$ROOT nach ${CARD}p2"; DD "$ROOT" "${CARD}p2";
-                 sudo sync; Write "Warte 1 Minuten, bis volles Images erzeugt wird!"; sleep 1m;
+                 sudo sync; sleep 5s;
                  Write "Erzeuge von $CARD das Image \$SERVER"; DD "$CARD" "$SERVER";
-                 sudo sync; Write "Warte 2 Minuten, bis PiShrink Image erzeugt wird!"; sleep 0m;
+                 sudo sync; sleep 5s;
                  Write "Erzeuge PiShrink Image \$PiShrink"; sudo PiShrink "-s" "$SERVER" "$PiShrink";
                  Write "Image schreiben abgeschlossen! <-|"; sudo sync;
                  sudo rm "$CrImage";
@@ -69,7 +69,7 @@ elif [[ $(mount | grep "${CARD}p2 on / type ext4") ]]; then
               Write "Erzeuge Image \$ROOT von ${SSD}2"; DD "${SSD}2" "$ROOT";
               Write "Image schreiben abgeschlossen! <-|";
               sudo sh -c "echo '- Create New Image on next boot from $SSD' > $CrImage";
-              BLINK; sleep 5s; sudo sync; Reboot 0;
+              BLINK; sleep 5s; sudo sync; PowerOff;
           else Write"Netzwerk nicht gemountet!"; exit 1; fi
       else Write "SdCard gemountet, aber ssd wurde nicht gefunden!"; exit 1; fi
 else Write "Weder sdcard noch ssd wurden erkannt!"; exit 1; fi
