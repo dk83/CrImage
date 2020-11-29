@@ -43,15 +43,16 @@ if ! [[ -d "$DIR" ]]; then Write "ERROR, Verzeichnis $Dir existiert nicht! EXIT"
 ###   SSD mountet   ##€
 if [[ $(mount | grep "${SSD}2 on / type ext4") ]]; then
     if [[ -f "$CrImage" ]]; then
-         Write "SSD: ${SSD}2 gebootet...WriteImage in 30s"; sleep 30;
+         Write "SSD: ${SSD}2 gebootet..";
         if [[ $(ls "${CARD}p2") ]]; then
+             Write "Beginne in 3 Minuten mit Write Image"; sleep 3m;
              if [[ $(mount | grep "$Mount on /mnt/Backup") ]]; then
                  BLINK;
                  Write "WriteImage: Write \$BOOT nach ${CARD}p1"; DD "$BOOT" "${CARD}p1";
                  Write "WriteImage: Write \$ROOT nach ${CARD}p2"; DD "$ROOT" "${CARD}p2";
-                 sudo sync; sleep 5s;
+                 sudo sync; Write "Image erstellen pausiert, erzeuge gesamt Image in 5 min"; sleep 5m;
                  Write "Erzeuge von $CARD das Image \$SERVER"; DD "$CARD" "$SERVER";
-                 sudo sync; sleep 5s;
+                 sudo sync; Write "Image erstellen Pausiert, Erzeuge PiShrink Image in 30 min"; sleep 30m;
                  Write "Erzeuge PiShrink Image \$PiShrink"; sudo PiShrink "-s" "$SERVER" "$PiShrink";
                  Write "Image schreiben abgeschlossen! <-|"; sudo sync;
                  sudo rm "$CrImage";

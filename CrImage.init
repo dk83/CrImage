@@ -12,7 +12,7 @@
 case "$1" in
 	start)
 	    echo "- CrImage wird gestartet"
-            sleep 1m && /etc/CrImage.sh &
+            sleep 90s && /etc/CrImage.sh &
 	    ;;
 	stop)
             echo "CrImage wird beendet"
